@@ -1,0 +1,5 @@
+{% autoescape off %}
+Hi {{user}} You have created a new account on {{ site }}.
+For verify your account click this link
+{{site}}{% url 'Account:activate' uidb64=uid token=token %}
+{% endautoescape %}

@@ -1,0 +1,269 @@
+{% extends 'base.html' %} 
+{% block title %} Short Url {% endblock title %}
+{% load static %}
+{% block css %}
+<style>
+div#updatedMsg {
+  position: relative;
+}
+
+div#updatedMsg a {
+  position: absolute;
+  right: 10px;
+}
+div#updatedMsg a i {
+    color: #fff;
+}
+</style>
+
+
+{% endblock %}
+{% block body %}
+<!-- Hero Section -->
+<div class="gradient-x-overlay-lg-navy-video">
+  <!-- Video Background -->
+  <div
+    class="js-video-bg d-none d-md-block position-absolute w-100 h-100"
+    data-hs-video-bg-options='{
+         "type": "you-tube",
+         "videoId": "0qisGSwZym4",
+         "ratio": 0.75
+       }'
+  ></div>
+  <!-- End Video Background -->
+
+  <div class="position-relative z-index-2">
+    <!-- Content -->
+    <div class="d-md-flex">
+      <div
+        class="
+          container
+          d-md-flex
+          align-items-md-center
+          min-vh-md-100
+          text-center
+          space-3 space-top-md-4 space-top-lg-3
+        "
+      >
+        <div class="w-lg-85 mx-lg-auto">
+          <!-- Info -->
+          <div class="mt-5 mb-7">
+            <h1 class="display-4 text-white mb-3">Create a short url</h1>
+            <p class="lead text-white">
+              Attract more visitors, and win more business with our
+              template.
+            </p>
+          </div>
+          <!-- End Info -->
+
+          <!-- Form -->
+          <form class="w-lg-85 mx-lg-auto js-validate" method="POST" action="{% url 'url:generaturl' %}">
+            {% csrf_token %}
+            <div class="form-group js-form-message">
+              <input
+                type="url"
+                name="original"
+                class="form-control shadow-none"
+                aria-label="original"
+                required=""
+                placeholder="Original Url"
+                data-msg=""
+                value="{{orginal}}"
+              />
+            </div>
+
+            <div class="card p-3 mb-5">
+              <div class="form-row input-group-borderless">
+                <div class="form-group col-sm mb-2 mb-md-0 js-form-message">
+                  <div class="input-group-prepend">
+                    <div
+                      style="background: #80808045; color: #000"
+                      class="input-group-text"
+                    >
+                    {{current_site}}
+                    </div>
+                    <input
+                      type="text"
+                      name="short_url"
+                      class="form-control"
+                      placeholder="Short Char (6 chars)"
+                      minlength="6"
+                      data-msg=""
+                    />
+                  </div>
+                </div>
+                <div class="col-md-auto">
+                  <button
+                    type="submit"
+                    class="btn btn-block btn-primary btn-wide"
+                  >
+                    Get Started
+                  </button>  
+                </div>
+              </div>
+            </div>
+
+            <p style="color: #fff" class="form-tex">
+              Leave It Blank To generate randomly.
+            </p>
+          </form>
+          <!-- End Form -->
+        </div>
+      </div>
+    </div>
+    <!-- End Content -->
+  </div>
+
+  <div
+    class="
+      d-lg-none
+      position-absolute
+      top-0
+      right-0
+      bottom-0
+      left-0
+      bg-img-hero
+    "
+    style="background-image: url(assets/img/1920x1080/img20.jpg)"
+  ></div>
+</div>
+<!-- End Hero Section -->
+
+<!-- Short link table -->
+<div class="container">
+  <div class="card">
+
+    {% if messages %}
+    {% for message in messages %}
+      <div id="updatedMsg" class="alert alert-{{message.tags}}">
+        {{ message }}
+        <a href="#" onclick="closeWin()">
+          <i class="fas fa-times"></i>
+        </a>
+    </div>
+      {% endfor %}
+  {% endif %}
+
+    <!-- Header -->
+    <div class="card-header">
+      <h5 class="card-header-title">Shorted Link</h5>
+    </div>
+    <!-- End Header -->
+    <!-- Table -->
+    <div class="table-responsive">
+      <table
+        class="
+          table
+          table-borderless
+          table-thead-bordered
+          table-nowrap
+          table-align-middle
+        "
+      >
+        <thead class="thead-light">
+          <tr>
+            <th>Shorted Link</th>
+            <th>Original Link</th>
+            <th>Total Views</th>
+            <th>Delete Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          {% for url in short_url %}
+          <tr>
+            <td>
+              <a target='_blank' href="{{scheme}}://{{current_site}}/{{url.short_url}}">{{scheme}}://{{current_site}}/{{url.short_url}} 
+            </a>
+          </td>
+
+            <td><a target='_blank' href="{{ url.orginal_url }}">{{url.orginal_url|slice:"0:40"}}...</a></td>
+
+            <td>{{ url.visits }}</td>
+
+            <td> 
+              <i type="button" data-toggle="modal" data-target="#staticBackdrop{{forloop.counter}}" class="fas fa-trash"></i>
+             
+              <!-- Modal -->
+              <div class="modal fade" id="staticBackdrop{{forloop.counter}}" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Are you sure you want to delete this link?</h5>
+                      <button type="button" class="btn btn-xs btn-icon btn-soft-secondary" data-dismiss="modal" aria-label="Close">
+                        <svg aria-hidden="true" width="10" height="10" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                          <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      If you delete this link, you can't recover this link again.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                      <button data-product-id = {{url.id}}  data-action='remove' type="button" class="btn btn-primary removelink">Understood</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+    <!-- End Table -->
+  </div>
+</div>
+<!-- End Short link table -->
+
+<!-- See All button -->
+<div class="container">
+  <div class="row mt-3">
+    <div class="col text-center">
+      <a href="{% url 'url:ShortUrl' %}" class="btn btn-primary">See All Links</a>
+    </div>
+  </div>
+</div>
+<!-- End See All button -->
+{% endblock body %}
+
+{% block script %}
+
+  
+  <!-- JS Blueberry -->
+  <script src="{% static 'assets/js/hs.core.js' %}"></script>
+  <script src="{% static 'assets/js/removeLink.js' %}"></script>
+  <script src="{% static 'assets/js/hs.validation.js' %}"></script>
+
+<!-- JS Implementing Plugins -->
+<script src="{% static 'assets/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+
+
+<!-- JS Plugins Init. -->
+<script>
+  $(document).on('ready', function () {
+    // initialization of form validation
+    $('.js-validate').each(function () {
+      var validation = $.HSCore.components.HSValidation.init($(this));
+    });
+  });
+</script>
+
+<script>
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
+  
+  function closeWin() {
+  document.getElementById('updatedMsg').setAttribute("style", "display:none");
+}
+
+
+</script>
+
+
+{% endblock script %}

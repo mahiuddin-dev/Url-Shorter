@@ -1,0 +1,322 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Title -->
+    <title> {% block title %}  {% endblock title %} </title>
+
+    <!-- Required Meta Tags Always Come First -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/favicon.ico' %}" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
+
+    <!-- CSS Blueberry Template -->
+    <link rel="stylesheet" href="{% static 'assets/css/theme.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/vendor/font-awesome/css/all.min.css' %}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/vendor/aos/dist/aos.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/vendor/dzsparallaxer/dzsparallaxer.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/vendor/leaflet/dist/leaflet.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/vendor/hs-video-bg/dist/hs-video-bg.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/vendor/slick-carousel/slick/slick.css' %}"
+    />
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"
+    ></script>
+
+    <script type="text/javascript">
+
+      var User = '{{request.user}}'
+      
+      function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+    </script>
+
+    {% block css %}
+    {% endblock %}
+  </head>
+  <body>
+    <!-- ========== HEADER ========== -->
+    <header id="header" class="header">
+      <div class="header-section">
+        <div id="logoAndNav" class="container">
+          <!-- Nav -->
+          <nav class="js-mega-menu navbar navbar-expand-lg">
+            <!-- Logo -->
+              <h2  class="navbar-brand"> <a style="color: black" href="{% url 'Home:Home' %}">URL SHORTER</a> </h2>
+            <!-- End Logo -->
+
+            <!-- Responsive Toggle Button -->
+            <button
+              type="button"
+              class="navbar-toggler btn btn-icon btn-sm rounded-circle"
+              aria-label="Toggle navigation"
+              aria-expanded="false"
+              aria-controls="navBar"
+              data-toggle="collapse"
+              data-target="#navBar"
+            >
+              <span class="navbar-toggler-default">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 18 18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z"
+                  />
+                </svg>
+              </span>
+              <span class="navbar-toggler-toggled">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 18 18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"
+                  />
+                </svg>
+              </span>
+            </button>
+            <!-- End Responsive Toggle Button -->
+
+            <!-- Navigation -->
+            <div id="navBar" class="collapse navbar-collapse">
+              <ul class="navbar-nav">
+                <!-- Home -->
+                <li class="navbar-nav-last-item">
+                  <a class="nav-link" href="{% url 'Home:Home' %}">Home</a>
+                </li>
+                <!-- End Home -->
+
+                <!-- generat url -->
+                <li class="navbar-nav-last-item">
+                  <a class="nav-link" href="{% url 'url:generaturl' %}">Generat Url</a>
+                </li>
+                <!-- End generat url -->
+
+                <!-- Account Info -->
+                <li class="nav-item dropdown hs-has-sub-menu navbar-nav-item">
+                  <a
+                    class="
+                      nav-link
+                      hs-mega-menu-invoker
+                      nav-link nav-link-toggle
+                    "
+                    href="#"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Account
+                  </a>
+
+                  {% if user.is_authenticated %}
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'Account:Accountview' %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'Account:Logoutview' %}">Logout</a></li>
+                  </ul>
+                  
+                  {% else %}
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="{% url 'Account:loginview' %}">Login</a></li>
+                    <li><a class="dropdown-item" href="{% url 'Account:Registration' %}">Regester</a></li>
+                  </ul>
+
+                  {% endif %}
+
+
+                    
+
+                </li>
+                <!--End Account Info -->
+              </ul>
+            </div>
+            <!-- End Navigation -->
+          </nav>
+          <!-- End Nav -->
+        </div>
+      </div>
+    </header>
+    <!-- ========== END HEADER ========== -->
+
+    {% block body %} {% endblock body %}
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="container space-2 text-center">
+      <!-- Logo -->
+      <h2  class="navbar-brand"> <a style="color: black" href="{% url 'Home:Home' %}">URL SHORTER</a> </h2>
+      <!-- End Logo -->
+
+      <p class="font-size-1 mb-1">
+        We're part of the <a href="#">Pixeel Ltd.</a> family along with
+        <a target="_blank" href="https://facebook.com/codermahiuddin">Mahiuddin</a>.
+      </p>
+      <p class="font-size-1">
+        © mahiuddin. 2021 mahiuddin. All rights reserved.
+      </p>
+
+      <!-- Social Networks -->
+      <ul class="list-inline mb-0">
+
+        <li class="list-inline-item mb-2 mb-sm-0">
+          <a target="_blank"
+            class="btn btn-icon btn-sm btn-ghost-secondary rounded-circle"
+            href="https://facebook.com/codermahiuddin"
+          >
+            <i class="fab fa-facebook-f"></i>
+          </a>
+        </li>
+
+        <li class="list-inline-item mb-2 mb-sm-0">
+          <a target="_blank"
+            class="btn btn-icon btn-sm btn-ghost-secondary rounded-circle"
+            href="https://github.com/codermahiuddin"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+
+      </ul>
+      <!-- End Social Networks -->
+    </footer>
+    <!-- ========== END FOOTER ========== -->
+
+  
+
+    <!-- JS Blueberry -->
+    <script src="{% static 'assets/js/hs.leaflet.js' %}"></script>
+    <script src="{% static 'assets/js/hs.circles.js' %}"></script>
+    <script src="{% static 'assets/js/hs.slick-carousel.js' %}"></script>
+    <script src="{% static 'assets/js/hs.core.js' %}"></script>
+    
+    <!-- JS Global Compulsory -->
+    <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/jquery-migrate/dist/jquery-migrate.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script src="{% static 'assets/vendor/aos/dist/aos.js' %}"></script>
+    <script src="{% static 'assets/vendor/hs-counter/dist/hs-counter.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/appear.js' %}"></script>
+    <script src="{% static 'assets/vendor/dzsparallaxer/dzsparallaxer.js' %}"></script>
+    <script src="{% static 'assets/vendor/leaflet/dist/leaflet.js' %}"></script>
+    <script src="{% static 'assets/vendor/circles/circles.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/hs-video-bg/dist/hs-video-bg.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/slick-carousel/slick/slick.js' %}"></script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+      $(document).on("ready", function () {
+        // initialization of counter
+        $(".js-counter").each(function () {
+          var counter = new HSCounter($(this)).init();
+        });
+      });
+    </script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+      $(document).on("ready", function () {
+        // initialization of counter
+        $(".js-counter").each(function () {
+          var counter = new HSCounter($(this)).init();
+        });
+      });
+    </script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+      $(document).on("ready", function () {
+        // initialization of circles
+        $(".js-circle").each(function () {
+          var circle = $.HSCore.components.HSCircles.init($(this));
+        });
+      });
+    </script>
+
+    <!-- JS Plugins Init. -->
+    <script>
+      $(document).on("ready", function () {
+        // initialization of video on background
+        $(".js-video-bg").each(function () {
+          var videoBg = new HSVideoBg($(this)).init();
+        });
+
+        // initialization of form validation
+        $(".js-validate").each(function () {
+          var validation = $.HSCore.components.HSValidation.init($(this));
+        });
+
+        // initialization of slick carousel
+        $(".js-slick-carousel").each(function () {
+          var slickCarousel = $.HSCore.components.HSSlickCarousel.init($(this));
+        });
+      });
+    </script>
+
+    
+    {% block script %}
+        
+    {% endblock script %}
+        
+
+
+  </body>
+</html>
+

@@ -1,0 +1,7 @@
+{% autoescape off %}
+Hi there,
+please click the click to set a new password.
+
+{{site}}{% url 'Account:setnewpassword' uidb64=uid token=token %}
+
+{% endautoescape %}
