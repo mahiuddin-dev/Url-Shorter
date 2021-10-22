@@ -1,0 +1,288 @@
+{% extends 'base.html' %}
+{% block title %} Account {% endblock title %}
+{% load static %}
+{% block css %}
+<style>
+div#updatedMsg {
+  position: relative;
+}
+
+div#updatedMsg a {
+  position: absolute;
+  right: 10px;
+}
+div#updatedMsg a i {
+    color: #fff;
+}
+</style>
+{% endblock %}
+
+
+{% block body %}
+<!-- ==========  MAIN ========== -->
+<main id="content" role="main" class="bg-light">
+    <!-- Breadcrumb Section -->
+    <div class="bg-navy">
+      <div class="container space-1 space-top-lg-2 space-bottom-lg-3">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="d-none d-lg-block">
+              <h1 class="h2 text-white">Personal info</h1>
+            </div>
+
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb breadcrumb-light breadcrumb-no-gutter mb-0">
+              <li class="breadcrumb-item">Account</li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Personal info
+              </li>
+            </ol>
+            <!-- End Breadcrumb -->
+          </div>
+
+          <div class="col-auto">
+            <div class="d-none d-lg-block">
+              <a class="btn btn-soft-light" href="{% url 'Account:Logoutview' %}">Log out</a>
+            </div>
+
+            <!-- Responsive Toggle Button -->
+            <button type="button" class="navbar-toggler btn btn-icon btn-sm rounde-circle d-lg-none" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebarNav" data-toggle="collapse" data-target="#sidebarNav">
+              <span class="navbar-toggler-default">
+                <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="currentColor" d="M17.4,6.2H0.6C0.3,6.2,0,5.9,0,5.5V4.1c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,5.9,17.7,6.2,17.4,6.2z M17.4,14.1H0.6c-0.3,0-0.6-0.3-0.6-0.7V12c0-0.4,0.3-0.7,0.6-0.7h16.9c0.3,0,0.6,0.3,0.6,0.7v1.4C18,13.7,17.7,14.1,17.4,14.1z"></path>
+                </svg>
+              </span>
+              <span class="navbar-toggler-toggled">
+                <svg width="14" height="14" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="currentColor" d="M11.5,9.5l5-5c0.2-0.2,0.2-0.6-0.1-0.9l-1-1c-0.3-0.3-0.7-0.3-0.9-0.1l-5,5l-5-5C4.3,2.3,3.9,2.4,3.6,2.6l-1,1 C2.4,3.9,2.3,4.3,2.5,4.5l5,5l-5,5c-0.2,0.2-0.2,0.6,0.1,0.9l1,1c0.3,0.3,0.7,0.3,0.9,0.1l5-5l5,5c0.2,0.2,0.6,0.2,0.9-0.1l1-1 c0.3-0.3,0.3-0.7,0.1-0.9L11.5,9.5z"></path>
+                </svg>
+              </span>
+            </button>
+            <!-- End Responsive Toggle Button -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Breadcrumb Section -->
+
+    <!-- Content Section -->
+    <div class="container space-2 space-top-lg-0 mt-lg-n10">
+      <div class="row">
+        <div class="col-lg-3">
+          <!-- Navbar -->
+          <div class="navbar-expand-lg navbar-expand-lg-collapse-block navbar-light">
+            <div id="sidebarNav" class="collapse navbar-collapse navbar-vertical">
+              <!-- Card -->
+              <div class="card mb-5">
+                <div class="card-body">
+                  <!-- Avatar -->
+                  <div class="d-none d-lg-block text-center mb-5">
+                    <h4 class="card-title">{{ user.first_name }}</h4>
+                    <p class="card-text font-size-1">{{ user.email }}</p>
+                  </div>
+                  <!-- End Avatar -->
+
+                  <h6 class="text-cap small">Account</h6>
+
+                  <!-- List -->
+                  <ul class="nav nav-sub nav-sm nav-tabs nav-list-y-2 mb-4">
+                    <li class="nav-item">
+                      <span class="nav-link active" role="button">
+                        <i class="fas fa-id-card nav-icon"></i>
+                        Personal info
+                      </span>
+                    </li>
+                  </ul>
+                  <!-- End List -->
+                </div>
+              </div>
+              <!-- End Card -->
+            </div>
+          </div>
+          <!-- End Navbar -->
+        </div>
+
+        <div class="col-lg-9">
+          <!-- Card -->
+          <div class="card mb-3 mb-lg-5">
+            <div class="card-header">
+              <h5 class="card-title">Basic info</h5>
+            </div>
+
+            {% if messages %}
+              {% for message in messages %}
+                <div id="updatedMsg" class="alert alert-{{message.tags}}">
+                  {{ message }}
+                  <a href="#" onclick="closeWin()">
+                    <i class="fas fa-times"></i>
+                  </a>
+              </div>
+                {% endfor %}
+            {% endif %}
+
+            <!-- Body -->
+            <div class="card-body">
+              <form class="js-validate" method="POST" action="{% url 'Account:Accountview' %}">
+                {% csrf_token %}
+                <!-- Form Group -->
+                <div class="row form-group">
+                  <label for="firstNameLabel" class="col-sm-3 col-form-label input-label">Full name
+                    <i class="far fa-question-circle text-body ml-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Displayed on public forums, such as Blueberry."></i></label>
+
+                  <div class="col-sm-9 js-form-message">
+                    <div class="input-group">
+                      <input type="text" class="form-control" name="fullname" id="firstNameLabel" placeholder="Full name" aria-label="Full name" value="{{ user.first_name }}" required data-msg="Please enter your full name.">
+                    </div>
+                  </div>
+                </div>
+                <!-- End Form Group -->
+
+                <!-- Form Group -->
+                <div class="row form-group ">
+                  <label for="emailLabel" class="col-sm-3 col-form-label input-label">Email</label>
+
+                  <div class="col-sm-9 js-form-message">
+                    <input type="email" class="form-control" name="email" id="emailLabel" placeholder="abc@example.com" aria-label="abc@example.com" value="{{ user.email }}" required data-msg="Please enter a valid email address.">
+                  </div>
+                </div>
+                <!-- End Form Group -->
+
+
+                <!-- Footer -->
+            <div class="card-footer d-flex justify-content-end">
+                <button type="reset" class="btn btn-white" >Cancel</button>
+                <span class="mx-2"></span>
+                <button name="updatedInfo" type="submit" class="btn btn-primary" >Save Changes</button>
+              </div>
+              <!-- End Footer -->
+
+              </form>
+            </div>
+            <!-- End Body -->
+
+            
+          </div>
+          <!-- End Card -->
+
+          <!-- Card -->
+          <div id="editAddressCard" class="card mb-3 mb-lg-5">
+            <div class="card-header">
+              <h5 class="card-title">Add Custom Domain Address</h5>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+                <form class="js-validate" method="POST" action="{% url 'Account:Accountview' %}">
+                  {% csrf_token %}
+                <!-- Form Group -->
+                <div class="row form-group">
+                  <label for="addressLine1Label" class="col-sm-3 col-form-label input-label">Domain Address</label>
+
+                  <div class="col-sm-9 js-form-message">
+                    <input id="domainName" name="domainName" type="text" class="form-control" name="addressLine1" id="addressLine1Label" placeholder="Domain Address" aria-label="Domain address" value="{{ cus_domain }}" data-msg="Please enter a domain address." required minlength="3">
+                  </div>
+                </div>
+                <!-- End Form Group -->
+                <!-- Footer -->
+                <div class="card-footer d-flex justify-content-end">
+                  <button type="reset" class="btn btn-white" >Cancel</button>
+                    <span class="mx-2"></span>
+                    <button name="customDomain" type="submit" class="btn btn-primary" href="javascript:;">Save Changes</button>
+                </div>
+                <!-- End Footer -->
+              </form>
+              </div>
+              <!-- End Body -->
+
+          
+          </div>
+          <!-- End Card -->
+
+
+          <!-- Card -->
+          
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Delete your account</h5>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+              <p class="card-text">
+                When you delete your account, you lose access to Blueberry
+                account services, and we permanently delete your personal
+                data. You can cancel the deletion for 14 days.
+              </p>
+              <form action="" class="js-validate"> 
+              <div class="form-group">
+
+                 <!-- Checkbox -->
+                <div class="js-form-message mb-5">
+                  <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
+                    <input type="checkbox" class="custom-control-input" id="deleteAccountCheckbox" name="deleteAccountCheckbox" required
+                          data-msg="Confirm that you want to delete your account.">
+                    <label class="custom-control-label" for="deleteAccountCheckbox">Confirm that I want to delete my account.</label>
+                  </div>
+                </div>
+                <!-- End Checkbox -->
+
+
+              </div>
+
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-danger transition-3d-hover">
+                  Delete
+                </button>
+              </div>
+            </form>
+            </div>
+            <!-- End Body -->
+          </div>
+          <!-- End Card -->
+   
+        </div>
+      </div>
+      <!-- End Row -->
+    </div>
+    <!-- End Content Section -->
+  </main>
+<!-- ========== END MAIN ========== -->
+{% endblock body %}
+
+
+
+{% block script %}
+
+
+<!-- JS Blueberry -->
+<script src="{% static 'assets/js/hs.core.js' %}"></script>
+
+<!-- JS Implementing Plugins -->
+<script src="{% static 'assets/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+
+<!-- JS Blueberry -->
+<script src="{% static 'assets/js/hs.validation.js' %}"></script>
+
+<!-- JS Plugins Init. -->
+<script>
+$(document).on('ready', function () {
+  // initialization of form validation
+  $('.js-validate').each(function () {
+    var validation = $.HSCore.components.HSValidation.init($(this));
+  });
+});
+</script>
+
+<script>
+if (window.history.replaceState) {
+  window.history.replaceState(null, null, window.location.href);
+}
+
+function closeWin() {
+document.getElementById('updatedMsg').setAttribute("style", "display:none");
+}
+
+
+</script>
+
+{% endblock script %}

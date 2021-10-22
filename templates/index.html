@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %} Home Page {% endblock title %}
+{% load static %}
+
+
+{% block body %}
+
+
+{% if error %}
+  <!-- CTA Section -->
+<div class="container space-2">
+  <div class="text-center py-6" style="background: url(https://blueberry.com.bd/assets/svg/components/abstract-shapes-19.svg) center no-repeat;">
+    <h1>Oops!</h1>
+    <p>We're sorry,The <b>URL</b> you were looking for doesn't exist anymore.</p>
+    <span class="d-block mt-5">
+      <a class="btn btn-primary transition-3d-hover" href="{% url 'url:generaturl' %}">Generate Short URL</a>
+    </span>
+  </div>
+</div>
+<!-- End CTA Section -->
+
+{% else %}
+
+<!-- Hero Section -->
+<div class="gradient-x-overlay-sm-indigo position-relative overflow-hidden">
+  <div class="container space-top-3 space-top-lg-4 space-bottom-2">
+    <div class="w-lg-60 text-center mx-lg-auto">
+      <div class="mb-5">
+        <h1 class="display-4 mb-3">The <span class="text-primary">#1</span> software development tool.</h1>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus eligendi ipsa voluptates</p>
+      </div>
+      <a class="btn btn-primary transition-3d-hover" href="{% url 'url:generaturl' %}">Generate Short URL  <i class="fas fa-angle-right ml-1"></i></a>
+    </div>
+  </div>
+
+  <!-- Mockup -->
+  <div class="container space-2">
+    <div class="position-relative w-lg-75 text-center mx-lg-auto">
+
+      <figure class="max-w-15rem w-100 position-absolute top-0 right-0" data-aos="fade-up" data-aos-delay="100" data-aos-offset="-50">
+        <div class="mt-n11 mr-n11">
+          <img class="img-fluid" src="https://blueberry.com.bd/assets/svg/components/dots-1.svg" alt="Image Description">
+        </div>
+      </figure>
+      <figure class="max-w-15rem w-100 position-absolute bottom-0 left-0" data-aos="fade-up">
+        <div class="mb-n7 ml-n7">
+          <img class="img-fluid" src="https://blueberry.com.bd/assets/svg/components/dots-1.svg" alt="Image Description">
+        </div>
+      </figure>
+    </div>
+  </div>
+  <!-- End Mockup -->
+
+  <!-- SVG Background Shape -->
+  <figure class="w-35 position-absolute top-0 right-0 z-index-n1 mt-n11 mr-n11">
+    <img class="img-fluid" src="https://blueberry.com.bd/assets/svg/components/half-circle-1.svg" alt="Image Description">
+  </figure>
+
+  <figure class="w-25 position-absolute bottom-0 left-0 z-index-n1 mb-n11 ml-n11">
+    <img class="img-fluid" src="https://blueberry.com.bd/assets/svg/components/half-circle-2.svg" alt="Image Description">
+  </figure>
+  <!-- End SVG Background Shape -->
+</div>
+<!-- End Hero Section -->
+
+
+  {% endif %}
+
+  
+{% endblock body %}
+    
+
+  
