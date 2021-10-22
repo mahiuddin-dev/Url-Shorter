@@ -13,13 +13,13 @@
 	$.HSCore.components.HSLeaflet = {
 		defaults: {
 			map: {
-				coords: [23.8130, 90.4222],
-				zoom: 15
+				coords: [51.505, -0.09],
+				zoom: 13
 			},
 			layer: {
 				token: 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
 				id: 'mapbox/streets-v11',
-				maxZoom: 24
+				maxZoom: 18
 			},
 			marker: null
 		},
