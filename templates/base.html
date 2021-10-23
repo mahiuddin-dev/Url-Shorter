@@ -21,17 +21,12 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
     <!-- CSS Blueberry Template -->
     <link rel="stylesheet" href="{% static 'assets/css/theme.css' %}" />
-    <link
-      rel="stylesheet"
-      href="{% static 'assets/vendor/font-awesome/css/all.min.css' %}"
-    />
-
-    <link
-      rel="stylesheet"
-      href="{% static 'assets/vendor/slick-carousel/slick/slick.css' %}"
-    />
+    <!-- font awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
     <script type="text/javascript">
 
@@ -212,80 +207,12 @@
     <!-- ========== END FOOTER ========== -->
 
     <!-- JS Global Compulsory -->
-    <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'assets/vendor/jquery-migrate/dist/jquery-migrate.min.js' %}"></script>
-    <script src="{% static 'assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    <!-- JS Blueberry -->
-    <script src="{% static 'assets/js/hs.circles.js' %}"></script>
-    <script src="{% static 'assets/js/hs.slick-carousel.js' %}"></script>
-    <script src="{% static 'assets/js/hs.core.js' %}"></script>
-    
-
-    <!-- JS Implementing Plugins -->
-    <script src="{% static 'assets/vendor/hs-counter/dist/hs-counter.min.js' %}"></script>
-    <script src="{% static 'assets/vendor/appear.js' %}"></script>
-    <script src="{% static 'assets/vendor/circles/circles.min.js' %}"></script>
-
-    <script src="{% static 'assets/vendor/slick-carousel/slick/slick.js' %}"></script>
-
-    <!-- JS Plugins Init. -->
-    <script>
-      $(document).on("ready", function () {
-        // initialization of counter
-        $(".js-counter").each(function () {
-          var counter = new HSCounter($(this)).init();
-        });
-      });
-    </script>
-
-    <!-- JS Plugins Init. -->
-    <script>
-      $(document).on("ready", function () {
-        // initialization of counter
-        $(".js-counter").each(function () {
-          var counter = new HSCounter($(this)).init();
-        });
-      });
-    </script>
-
-    <!-- JS Plugins Init. -->
-    <script>
-      $(document).on("ready", function () {
-        // initialization of circles
-        $(".js-circle").each(function () {
-          var circle = $.HSCore.components.HSCircles.init($(this));
-        });
-      });
-    </script>
-
-    <!-- JS Plugins Init. -->
-    <script>
-      $(document).on("ready", function () {
-        // initialization of video on background
-        $(".js-video-bg").each(function () {
-          var videoBg = new HSVideoBg($(this)).init();
-        });
-
-        // initialization of form validation
-        $(".js-validate").each(function () {
-          var validation = $.HSCore.components.HSValidation.init($(this));
-        });
-
-        // initialization of slick carousel
-        $(".js-slick-carousel").each(function () {
-          var slickCarousel = $.HSCore.components.HSSlickCarousel.init($(this));
-        });
-      });
-    </script>
-
-    
     {% block script %}
-        
     {% endblock script %}
-        
-
-
   </body>
 </html>
 

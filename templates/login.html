@@ -38,7 +38,7 @@ div#updatedMsg a i {
 
 
         <!-- Form -->
-        <form class="js-validate" method="POST" action="{% url 'Account:loginview' %}">
+        <form class="needs-validation" novalidate method="POST" action="{% url 'Account:loginview' %}">
           {% csrf_token %}
           <!-- Title -->
           <div class="mb-5 mb-md-7">
@@ -50,8 +50,8 @@ div#updatedMsg a i {
           <!-- Form Group -->
           <div class="js-form-message form-group">
             <label class="input-label" for="signinSrEmail">Email address</label>
-            <input type="email" class="form-control" name="email" id="signinSrEmail" tabindex="1" placeholder="Email address" aria-label="Email address" required
-                   data-msg="Please enter a valid email address.">
+            <input type="email" class="form-control" name="email" id="signinSrEmail" tabindex="1" placeholder="Email address" aria-label="Email address" required>
+            <div class="invalid-feedback">Please enter your email address.</div>
           </div>
           <!-- End Form Group -->
   
@@ -63,8 +63,8 @@ div#updatedMsg a i {
                 <a class="link-underline text-capitalize font-weight-normal" href="{% url 'Account:password-reset' %}">Forgot Password?</a>
               </span>
             </label>
-            <input type="password" class="form-control" name="password" id="signinSrPasswordExample2" tabindex="2" placeholder="********" aria-label="********" required minlength="6"
-            data-msg="Your password is invalid. Please try again.">
+            <input type="password" class="form-control" name="password" id="signinSrPasswordExample2" tabindex="2" placeholder="********" aria-label="********" required minlength="6">
+            <div class="invalid-feedback">Your password is invalid. Please try again.</div>
           </div>
           <!-- End Form Group -->
   
@@ -92,25 +92,7 @@ div#updatedMsg a i {
   {% block script %}
 
 
-  <!-- JS Blueberry -->
-  <script src="{% static 'assets/js/hs.core.js' %}"></script>
-
-<!-- JS Implementing Plugins -->
-<script src="{% static 'assets/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
-
 <!-- JS Blueberry -->
-<script src="{% static 'assets/js/hs.validation.js' %}"></script>
-
-<!-- JS Plugins Init. -->
-<script>
-  $(document).on('ready', function () {
-    // initialization of form validation
-    $('.js-validate').each(function () {
-      var validation = $.HSCore.components.HSValidation.init($(this));
-    });
-  });
-</script>
-
 <script>
   if (window.history.replaceState) {
     window.history.replaceState(null, null, window.location.href);
@@ -120,5 +102,26 @@ div#updatedMsg a i {
   document.getElementById('updatedMsg').setAttribute("style", "display:none");
 }
 </script>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+  </script>
 
 {% endblock script %}

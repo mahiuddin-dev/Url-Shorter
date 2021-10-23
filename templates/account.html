@@ -122,16 +122,21 @@ div#updatedMsg a i {
 
             <!-- Body -->
             <div class="card-body">
-              <form class="js-validate" method="POST" action="{% url 'Account:Accountview' %}">
+
+              <form class="needs-validation" novalidate method="POST" action="{% url 'Account:Accountview' %}">
                 {% csrf_token %}
+
                 <!-- Form Group -->
                 <div class="row form-group">
-                  <label for="firstNameLabel" class="col-sm-3 col-form-label input-label">Full name
-                    <i class="far fa-question-circle text-body ml-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Displayed on public forums, such as Blueberry."></i></label>
-
-                  <div class="col-sm-9 js-form-message">
+                  <label for="validationCustom1" class="col-sm-3 col-form-label input-label">Full name
+                  </label>
+                  <div class="col-sm-9">
                     <div class="input-group">
-                      <input type="text" class="form-control" name="fullname" id="firstNameLabel" placeholder="Full name" aria-label="Full name" value="{{ user.first_name }}" required data-msg="Please enter your full name.">
+                      <input type="text" class="form-control" name="fullname" id="validationCustom1" placeholder="Full name" aria-label="Full name" 
+                      value="{{ user.first_name }}" required minlength="3">
+                      <div class="invalid-feedback">
+                        Please enter your full name.
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -142,7 +147,10 @@ div#updatedMsg a i {
                   <label for="emailLabel" class="col-sm-3 col-form-label input-label">Email</label>
 
                   <div class="col-sm-9 js-form-message">
-                    <input type="email" class="form-control" name="email" id="emailLabel" placeholder="abc@example.com" aria-label="abc@example.com" value="{{ user.email }}" required data-msg="Please enter a valid email address.">
+                    <input type="email" class="form-control" name="email" id="emailLabel" placeholder="abc@example.com" aria-label="abc@example.com" value="{{ user.email }}" required>
+                    <div class="invalid-feedback">
+                      Please enter a valid email address.
+                    </div>
                   </div>
                 </div>
                 <!-- End Form Group -->
@@ -172,14 +180,17 @@ div#updatedMsg a i {
 
             <!-- Body -->
             <div class="card-body">
-                <form class="js-validate" method="POST" action="{% url 'Account:Accountview' %}">
+                <form class="needs-validation" novalidate method="POST" action="{% url 'Account:Accountview' %}">
                   {% csrf_token %}
                 <!-- Form Group -->
                 <div class="row form-group">
                   <label for="addressLine1Label" class="col-sm-3 col-form-label input-label">Domain Address</label>
 
                   <div class="col-sm-9 js-form-message">
-                    <input id="domainName" name="domainName" type="text" class="form-control" name="addressLine1" id="addressLine1Label" placeholder="Domain Address" aria-label="Domain address" value="{{ cus_domain }}" data-msg="Please enter a domain address." required minlength="3">
+                    <input id="domainName" name="domainName" type="text" class="form-control" name="addressLine1" id="addressLine1Label" placeholder="Domain Address" aria-label="Domain address" value="{{ cus_domain }}" required minlength="3">
+                    <div class="invalid-feedback">
+                      Please enter a domain address.
+                    </div>
                   </div>
                 </div>
                 <!-- End Form Group -->
@@ -213,15 +224,15 @@ div#updatedMsg a i {
                 account services, and we permanently delete your personal
                 data. You can cancel the deletion for 14 days.
               </p>
-              <form action="" class="js-validate"> 
+              <form action="" class="needs-validation" novalidate> 
               <div class="form-group">
 
                  <!-- Checkbox -->
                 <div class="js-form-message mb-5">
                   <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
-                    <input type="checkbox" class="custom-control-input" id="deleteAccountCheckbox" name="deleteAccountCheckbox" required
-                          data-msg="Confirm that you want to delete your account.">
+                    <input type="checkbox" class="custom-control-input" id="deleteAccountCheckbox" name="deleteAccountCheckbox" required>
                     <label class="custom-control-label" for="deleteAccountCheckbox">Confirm that I want to delete my account.</label>
+
                   </div>
                 </div>
                 <!-- End Checkbox -->
@@ -254,25 +265,6 @@ div#updatedMsg a i {
 {% block script %}
 
 
-<!-- JS Blueberry -->
-<script src="{% static 'assets/js/hs.core.js' %}"></script>
-
-<!-- JS Implementing Plugins -->
-<script src="{% static 'assets/vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
-
-<!-- JS Blueberry -->
-<script src="{% static 'assets/js/hs.validation.js' %}"></script>
-
-<!-- JS Plugins Init. -->
-<script>
-$(document).on('ready', function () {
-  // initialization of form validation
-  $('.js-validate').each(function () {
-    var validation = $.HSCore.components.HSValidation.init($(this));
-  });
-});
-</script>
-
 <script>
 if (window.history.replaceState) {
   window.history.replaceState(null, null, window.location.href);
@@ -282,7 +274,28 @@ function closeWin() {
 document.getElementById('updatedMsg').setAttribute("style", "display:none");
 }
 
-
 </script>
+
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+  </script>
 
 {% endblock script %}
