@@ -352,4 +352,20 @@ class AccountView(LoginRequiredMixin, View):
             else:
                 messages.error(request, 'Name must be at least 2 characters long')
 
+        # Delete current account
+        if request.method=='POST' and 'deleteAccount' in request.POST:
+             isDelete = request.POST.get('deleteAccountCheckbox')
+             
+             if isDelete == 'on':
+                 # Sent emmail user to inform that account has been deleted
+                 mail_subject = 'Permanently delete account'
+                 message = 'permanently delete your account. You will not be able to recover your account'
+                 sent_email = EmailMessage(mail_subject,message,'URL SHORT <ilovemahiuddin5@gmail.com>', to=[user.email])
+                 EmailThread(sent_email).start()
+                 user.delete()
+                 messages.success(request, "The user is deleted")
+                 return redirect('Account:Registration')
+            
+             
+
         return render(request,'account.html',context)

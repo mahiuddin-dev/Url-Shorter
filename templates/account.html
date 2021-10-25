@@ -224,9 +224,9 @@ div#updatedMsg a i {
                 account services, and we permanently delete your personal
                 data. You can cancel the deletion for 14 days.
               </p>
-              <form action="" class="needs-validation" novalidate> 
+              <form method="POST" class="needs-validation" novalidate> 
               <div class="form-group">
-
+                {% csrf_token %}
                  <!-- Checkbox -->
                 <div class="js-form-message mb-5">
                   <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
@@ -241,7 +241,7 @@ div#updatedMsg a i {
               </div>
 
               <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-danger transition-3d-hover">
+                <button name="deleteAccount" type="submit" class="btn btn-danger transition-3d-hover">
                   Delete
                 </button>
               </div>
