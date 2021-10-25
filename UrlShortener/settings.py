@@ -141,14 +141,22 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
 
-# User registration email authentication token sent settings
+# User email authentication token sent settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_PORT = 587
+EMAIL_HOST_USER = config('MAILGUN_SMTP_LOGIN')
+EMAIL_HOST_PASSWORD = config('MAILGUN_SMTP_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 django_heroku.settings(locals())

@@ -85,7 +85,7 @@ class RegistrationView(View):
 
         EmailThread(sent_email).start()
 
-        messages.info(request, 'Account created successfully. For verify your account please check your email')
+        messages.info(request, 'Account created successfully. For verify your account please check your email inbox or spam')
 
         return redirect('Account:loginview')
 
@@ -198,7 +198,7 @@ class PasswordRestView(View):
 
             EmailThread(sent_email).start()
 
-            messages.success(request, 'You have sent you a email to reset your password')
+            messages.success(request, 'You have sent you a email to reset your password. Check your email inbox or spam')
             return render(request,'reset.html')
         # if email is not exists redirect with error message
         else:
