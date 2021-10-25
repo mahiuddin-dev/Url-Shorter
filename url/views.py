@@ -18,9 +18,15 @@ class generaturlView(LoginRequiredMixin,View):
     def randomString(self):
         unique_id = get_random_string(length=6)
         return unique_id
+
+    # Remove space from string
+    def removeSpace(self,string): 
+        return string.replace(" ", "")
+
     # Check custom domain exists or not
-    def CheckCustomDomain(self,request,srt_url):
+    def CheckCustomDomain(self,request,shortUrl):
         user = request.user
+        srt_url = self.removeSpace(shortUrl)
         custom_domain = CustomDomain.objects.filter(user=user)
         # If don't have Custom Domain. short link exp (short/inputchar)
         if not custom_domain: 
