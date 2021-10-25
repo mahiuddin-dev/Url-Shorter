@@ -81,7 +81,7 @@ class RegistrationView(View):
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': default_token_generator.make_token(user)
         })
-        sent_email = EmailMessage(mail_subject,message, to=[email])
+        sent_email = EmailMessage(mail_subject,message,'URL SHORT <ilovemahiuddin5@gmail.com>', to=[email])
 
         EmailThread(sent_email).start()
 
@@ -109,7 +109,7 @@ def activate(request, uidb64, token):
                 'user': user.first_name,
                 'site': current_site,
             })
-            sent_email = EmailMessage(mail_subject,message, to=[user.email])
+            sent_email = EmailMessage(mail_subject,message,'URL SHORT <ilovemahiuddin5@gmail.com>',to=[user.email])
             EmailThread(sent_email).start()
 
             return redirect('Account:loginview')
@@ -194,7 +194,7 @@ class PasswordRestView(View):
                 'token': PasswordResetTokenGenerator().make_token(user[0])
             })
 
-            sent_email = EmailMessage(mail_subject,message, to=[email])
+            sent_email = EmailMessage(mail_subject,message,'URL SHORT <ilovemahiuddin5@gmail.com>', to=[email])
 
             EmailThread(sent_email).start()
 
@@ -263,7 +263,7 @@ class SetnewPasswordView(View):
             user.save()
             mail_subject = 'Password changed successfully'
             message = "Your password has been changed successfully. if you think you don't changed, please contact our support"
-            sent_email = EmailMessage(mail_subject,message, to=[user.email])
+            sent_email = EmailMessage(mail_subject,message,'URL SHORT <ilovemahiuddin5@gmail.com>', to=[user.email])
             EmailThread(sent_email).start()
             messages.success(request, 'Password reset successfully')
             return redirect('Account:loginview')
@@ -321,7 +321,7 @@ class AccountView(LoginRequiredMixin, View):
                 # Sent emmail user to inform that account has been updated
                 mail_subject = 'Account information changed'
                 message = 'Account information updated successfully. if you think this is wrong, please contact our support'
-                sent_email = EmailMessage(mail_subject,message, to=[user.email])
+                sent_email = EmailMessage(mail_subject,message,'URL SHORT <ilovemahiuddin5@gmail.com>', to=[user.email])
                 EmailThread(sent_email).start()
                 messages.success(request, 'Account information changed successfully')
 
