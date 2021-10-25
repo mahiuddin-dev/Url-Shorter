@@ -36,7 +36,7 @@
             <tr>
               <td><a target='_blank' href="{% if request.is_secure %}https{% else %}http{% endif %}://{{current_site}}/{{shorturl.short_url}}">{{scheme}}://{{current_site}}/{{shorturl.short_url}}</a></td>
 
-              <td><a target='_blank' href="{{ shorturl.orginal_url }}">{{shorturl.orginal_url|slice:"0:50"}}...</a></td>
+              <td><a target='_blank' href="{{ shorturl.orginal_url }}">{{shorturl.orginal_url|slice:"0:40"}}...</a></td>
 
               <td>{{ shorturl.visits }}</td>
 
